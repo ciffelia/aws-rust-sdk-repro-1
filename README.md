@@ -3,5 +3,5 @@
 ## Reproduction Steps
 
 ```sh
-AWS_REGION=es-east-1 AWS_ACCESS_KEY_ID=foo AWS_SECRET_ACCESS_KEY=bar cargo run
+AWS_REGION=us-east-1 AWS_ACCESS_KEY_ID=foo AWS_SECRET_ACCESS_KEY=bar cargo run
 ```
