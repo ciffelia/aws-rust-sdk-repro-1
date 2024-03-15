@@ -5,15 +5,15 @@ use aws_sdk_s3::{
     primitives::ByteStream,
     types::ChecksumAlgorithm,
 };
-use base64::Engine;
-use sha2::Digest;
 
 #[tokio::main]
 async fn main() {
     let client = aws_sdk_s3::Client::new(&aws_config::load_from_env().await);
 
-    let req1 = create_presigned_request(&client, "abc").await;
-    let req2 = create_presigned_request(&client, "xyz").await;
+    let req1 =
+        create_presigned_request(&client, "ungWv48Bz+pBQUDeXa4iI7ADYaOWF3qctBD/YfIAFa0=").await;
+    let req2 =
+        create_presigned_request(&client, "Ngi8oeROpsTSaOttsCJgJpiSwLQrhrvx53pvoWw8koI=").await;
 
     assert_ne!(
         req1.headers().collect::<Vec<_>>(),
@@ -21,13 +21,7 @@ async fn main() {
     );
 }
 
-async fn create_presigned_request(
-    client: &aws_sdk_s3::Client,
-    body: impl AsRef<[u8]>,
-) -> PresignedRequest {
-    let checksum = base64::engine::general_purpose::STANDARD.encode(sha2::Sha256::digest(&body));
-    println!("body: {:?}, checksum: {}", body.as_ref(), checksum);
-
+async fn create_presigned_request(client: &aws_sdk_s3::Client, checksum: &str) -> PresignedRequest {
     client
         .put_object()
         .bucket("example-bucket")
