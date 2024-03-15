@@ -14,7 +14,7 @@ async fn main() {
         .key("foo")
         .checksum_algorithm(ChecksumAlgorithm::Sha256)
         .checksum_sha256(checksum)
-        .body(ByteStream::from_static(b""))
+        .body(ByteStream::from_static(b"abc"))
         .presigned(PresigningConfig::expires_in(Duration::from_secs(360)).unwrap())
         .await
         .unwrap();
